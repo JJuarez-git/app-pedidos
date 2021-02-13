@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{controller_name}}{% endblock %}
+
+{% block body %}
+
+    <div class="animated fadeIn">
+        <div class="jumbotron jumbotron-fluid mt-4">
+            <div class="container text-center">
+                <h1 class="display-4">App de pedidos</h1>
+                <p class="lead">¡Bienvenido <span class="text-info">{{app.user.username}}</span>!</p>
+            </div>
+        </div>
+        <h2>Panel de gestión</h2>
+
+        <hr>
+
+        <div class="row">
+            <div class="col" style="padding: 1rem">
+                <div class="card" style="min-height: 10rem">
+                    <div class="card-body">
+                        <h5 class="card-title d-inline-block">Mis pedidos</h5>
+                        <img class="d-inline float-right" src="{{asset('img/shop-local.png')}}"/>
+                        <p class="card-text" style="max-width: 21rem;">Mira el listado con tus últimos pedidos.</p>
+                        <br>
+                        <a href="{{path('mispedidos')}}" class="btn btn-primary d-block">Ir a mis pedidos</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col" style="padding: 1rem">
+                <div class="card" style="min-height: 10rem">
+                    <div class="card-body">
+                        <h5 class="card-title d-inline-block">Ir al carrito</h5>
+                        <img class="d-inline float-right" src="{{asset('img/shopping-cart-loaded.png')}}"/>
+                        <p class="card-text" style="max-width: 21rem;">Accede al carrito de la compra para ver que tienes en espera de compra.</p>
+                        <a href="{{path('cesta')}}" class="btn btn-primary d-block">Ir al carrito</a>
+                    </div>
+                </div>
+            </div>    
+        </div>
+
+        
+    </div>
+    
+{% endblock %}

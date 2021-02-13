@@ -1,0 +1,27 @@
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{{path('home')}}">
+        <img src="{{asset('img/shop-location.png')}}"/>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item {{ app.request.get('_route') == 'home' ? 'active' }}">
+                <a class="nav-link" href="{{path('home')}}">Home</a>
+            </li>
+            <li class="nav-item {{ app.request.get('_route') == 'producto_index' ? 'active' }}">
+                <a class="nav-link" href="{{path('producto_index')}}">Productos</a>
+            </li>
+            <li class="nav-item {{ app.request.get('_route') == 'categoria_index' ? 'active' }}">
+                <a class="nav-link" href="{{path('categoria_index')}}">Categorías</a>
+            </li>
+        </ul>
+        <a class="navbar-brand" href="{{path('cesta')}}">
+            <span class="badge badge-primary badge-pill">{{cant}}</span>
+            <img height="30" src="{{asset('img/shopping-cart.png')}}"/>
+            <small class="d-inline-block">Cesta</small>
+        </a>
+        <a class="nav-link text-white pl-0" href="{{path('app_logout')}}">Cerrar sesión</a>
+    </div>
+</nav>

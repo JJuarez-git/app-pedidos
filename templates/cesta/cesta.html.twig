@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{controller_name}}{% endblock %}
+
+{% block body %}
+    
+    {% if not vacia %}
+        <h2 class="mb-0 mt-3">Cesta</h2>
+        <small class="text-danger">(No se aceptan pedidos menores de 10 &euro;)</small>
+        <hr>
+        <div class="row justify-content-between">
+            <div class="col-2">
+                <h5 class="mb-0 text-center">Producto</h5>
+            </div>
+            <div class="col-2 text-center">
+                <a href="{{path('cesta_remove_all')}}" class="d-block"><small>Vaciar cesta</small></a>
+            </div>
+            <div class="col-2 text-center">
+                <h5 class="mb-0">Precio</h5>
+            </div>
+        </div>
+        {% for item in cesta %}
+            <hr>
+            <div class="item-cesta">
+                <div class="row">
+                    <div class="col-2 text-center">
+                        <img src="{{item[0].foto}}" alt="{{item[0].nombre}}" height="80">
+                    </div>
+                    <div class="col-8">
+                        <h5><a href="{{path('producto_show', {'id': item[0].id})}}" class="text-dark">{{item[0].nombre}}</a></h5>
+                        <div>
+                            {# <select class="custom-select custom-select-sm col-1 d-inline-block sel-quantity">
+                                {% for i in 1..10 %}
+                                    <option value="{{i}}" {{item[1] == i ? 'selected'}}>{{i}}</option>
+                                {% endfor %}
+                            </select> #}
+                            <p class="d-inline"><small>{{item[1]}} unidad/es</small></p>
+                        </div>
+                        <a href="{{path('cesta_remove', {'id': loop.index - 1})}}" class="d-inline-block mt-1"><small>Eliminar</small></a>
+                    </div>
+                    <div class="col-2 text-center">
+                        <h6>{{item[0].precio}} &euro;</h6>
+                    </div>
+                </div>
+            </div> 
+
+        {% endfor %}
+        <hr>
+        <div class="row justify-content-between py-3 text-center">
+            <div class="col-2">
+                <a class="btn btn-success {{total < 10 ? 'disabled'}}" href="{{path('realizar_pedido')}}" role="button">Realizar pedido</a>
+            </div>
+            <div class="col-2">
+                <a href="{{path('producto_index')}}"><small>Seguir comprando</small></a>
+            </div>
+            <div class="col-2">
+                <h5>Total: {{total}} €</h5>
+            </div>
+        </div>
+    {% else %}
+        <div class="animated fadeIn">
+            <div class="jumbotron jumbotron-fluid mt-4">
+                <div class="container text-center">
+                    <h1 class="display-4">Carro de la compra</h1>
+                    <p class="lead">¡Parece que tu cesta está vacía!
+                        <a href="{{path('producto_index')}}" class="">Seguir comprando</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {# <script>
+        $('.sel-quantity').on('change', function() {
+            
+            console.log($(this));
+        });
+    </script> #}
+
+{% endblock %}

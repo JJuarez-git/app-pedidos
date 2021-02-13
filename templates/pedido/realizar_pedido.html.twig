@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{controller_name}}{% endblock %}
+
+{% block body %}
+
+    <div class="animated fadeIn">
+        <div class="jumbotron jumbotron-fluid mt-4">
+            <div class="container text-center">
+                <h1 class="display-4">¡Pedido realizado correctamente!</h1>
+                <p class="lead">Te estamos redireccionando a  
+                    <a href="{{path('mispedidos')}}" class="">Mis pedidos</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    {% block javacript %}
+        <script>
+            setTimeout(() => { window.location.replace("/mispedidos"); }, 3000);
+        </script>
+    {% endblock %}
+
+{% endblock %}

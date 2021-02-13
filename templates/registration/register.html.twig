@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Registro{% endblock %}
+
+{% block body %}
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+
+    <div class="col-6 mx-auto text-center registro">
+        {% if app.user %}
+            <div class="py-3">
+                <p>Has iniciado sesión como {{ app.user.username }}, <a href="{{ path('app_logout') }}">Cerrar sesión</a></p>
+            </div>
+        {% endif %}
+
+        <h1 class="h3 py-3 font-weight-normal">Registro</h1>
+        <hr>
+        {{form_start(registro)}}
+            {{form_label(registro.username, 'Usuario')}}
+            {{form_widget(registro.username)}}
+            {{form_help(registro.username)}}
+            <small>{{form_errors(registro.username)}}</small>
+
+            <br>
+
+            {{form_label(registro.plainPassword, 'Contraseña')}}
+            {{form_widget(registro.plainPassword)}}
+            <small>{{form_errors(registro.plainPassword)}}</small>
+
+            <br>
+            <button type="submit" class="btn btn-primary my-3">Registrarse</button>
+        
+        {{form_end(registro)}}
+        
+        <p>¿Tienes cuenta? <a href="{{path('app_login')}}">Inicia sesión</a></p>
+
+    </div>
+    
+{% endblock %}

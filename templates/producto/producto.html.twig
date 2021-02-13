@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{controller_name}}{% endblock %}
+
+{% block body %}
+
+    {% include 'includes/scroll_button.html.twig' %}
+    
+    <div class="animated fadeIn productos">
+        
+        <div class="jumbotron jumbotron-fluid mt-4 mb-0">
+            <div class="container text-center">
+                <h1 class="display-4">Productos</h1>
+            </div>
+        </div>
+
+        {% for valor in data_productos %}
+            <h4 class="mt-5 mr-2 mb-0 d-inline-block">{{valor['categoria'].nombre}}</h4>
+            <small><a href="/producto/cat/{{valor['categoria'].id}}" class="d-inline-block">Ver más</a></small>
+            <hr>
+
+            <div id="carousel{{valor['categoria'].id}}" class="carousel slide" data-ride="carousel" data-interval="false">
+                <div class="carousel-inner">
+
+                    <div class="carousel-item active">
+                        <div class="row align-items-start justify-content-center text-center">
+                            {% for producto in valor['productos'] | slice(0,4)%}
+                                <div class="card d-inline-block mx-2" id="product-item-{{producto.id}}">
+                                    <div class="card-top">
+                                        <a href="{{path('producto_show', {'id': producto.id})}}">
+                                            <img src="{{producto.foto}}" alt="{{producto.nombre}}" height="120">
+                                        </a>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <a href="{{path('producto_show', {'id': producto.id})}}" class="text-dark">{{producto.nombre}}</a>
+                                        </h5>
+                                        <h6>Precio: <span class="text-danger">{{producto.precio}} &euro;</span></h6>
+                                        {% if producto.stock > 0 %}
+                                            <p class="card-text"><small class="text-muted">Quedan {{producto.stock}} unidades</small></p>
+                                        {% else %}
+                                            <p class="card-text"><small class="text-muted">No quedan unidades</small></p>
+                                        {% endif %}
+                                    </div>
+                                    {% if producto.stock > 0 %}
+                                        <a href="{{path('cesta_add', {'id': producto.id, 'cantidad': 1})}}" class="btn btn-success px-5 product-link">Añadir</a>
+                                    {% endif %} 
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <div class="row align-items-start justify-content-center text-center">
+                            {% for producto in valor['productos'] | slice(4,4)%}
+                                <div class="card d-inline-block mx-2" id="product-item">
+                                    <div class="card-top">
+                                        <a href="{{path('producto_show', {'id': producto.id})}}">
+                                            <img src="{{producto.foto}}" alt="{{producto.nombre}}" height="120">
+                                        </a>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <a href="{{path('producto_show', {'id': producto.id})}}" class="text-dark">{{producto.nombre}}</a>
+                                        </h5>
+                                        <h6>Precio: <span class="text-danger">{{producto.precio}} &euro;</span></h6>
+                                        {% if producto.stock > 0 %}
+                                            <p class="card-text"><small class="text-muted">Quedan {{producto.stock}} unidades</small></p>
+                                        {% else %}
+                                            <p class="card-text"><small class="text-muted">No quedan unidades</small></p>
+                                        {% endif %}
+                                    </div>
+                                    {% if producto.stock > 0 %}
+                                        <a href="{{path('cesta_add', {'id': producto.id, 'cantidad': 1})}}" class="btn btn-success px-5 product-link">Añadir</a>
+                                    {% endif %} 
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <a class="carousel-control-prev" style="background: #888; width:3%" href="#carousel{{valor['categoria'].id}}" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" style="background: #888; width:3%" href="#carousel{{valor['categoria'].id}}" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}   
+
+        <div class="jumbotron jumbotron-fluid mt-4">
+            <div class="container text-center">
+                <h3 class="display-5"><a class="text-dark" href="{{path('categoria_index')}}">Ver todas las categorías</a></h3>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

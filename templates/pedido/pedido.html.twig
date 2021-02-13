@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{controller_name}}{% endblock %}
+
+{% block body %}
+    <h2 class="mb-0 mt-3">Mis pedidos</h2>
+    <hr>
+
+    <div class="container justify-content-center">
+
+        {% for valor in data %}
+            <div class="card mt-3 col-md-8 mx-auto px-0">
+                <div class="card-header">
+                    <div class="row justify-content-between">
+                        <div class="col-4">
+                            <p class="py-2 mb-0">Nº de pedido <span class="text-info">#{{valor['pedido'].id}}</span></p>
+                        </div>
+                        <div class="col-4 text-center">
+                            <p class="py-2 mb-0 text-secondary">{{valor['pedido'].fecha | date("d F Y") }}</p>
+                        </div>
+                        <div class="col-4 text-right">
+                            <p class="py-2 mb-0">Precio total: <span class="text-danger">{{valor['pedido'].precio}} €</span></p>
+                        </div> 
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Artículos</h5>
+                    <ul style="list-style: none">
+                        {% for articulo in valor['articulos'] %}
+                            <hr>
+                            <li>
+                                <div class="row mt-2">
+                                    <div class="col-3 text-center">
+                                        <img src="{{articulo.codProd.foto}}" alt="{{articulo.codProd.nombre}}" height="80">
+                                    </div>
+                                    <div class="col-9">
+                                        <a href="{{path('producto_show', {'id': articulo.codProd.id})}}" class="d-block mt-2">{{articulo.codProd.nombre}}</a>
+                                        <p>Unidades: {{articulo.unidades}}</p>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% else %}
+            <div class="animated fadeIn">
+                <div class="jumbotron jumbotron-fluid mt-4">
+                    <div class="container text-center">
+                        <h1 class="display-4">No tienes ningún pedido</h1>
+                        <p class="lead">¿Por qué no compras algo?
+                            <a href="{{path('producto_index')}}" class="">Productos</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}
